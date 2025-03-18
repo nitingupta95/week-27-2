@@ -1,0 +1,27 @@
+{
+  "name": "week_27",
+  "private": true,
+ "scripts": {
+  "build": "turbo run build --filter=apps/http-server",
+  "dev": "turbo run dev --filter=apps/http-server",
+  "lint": "turbo run lint --filter=apps/http-server",
+  "check-types": "turbo run check-types --filter=apps/http-server",
+  "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+  "generate:db": "cd packages/db && npx prisma generate",
+  "start:http-server": "cd apps/http-server && tsc -b && node ./dist/index.js",
+  "start:ws": "cd apps/ws-server && tsc -b && node ./dist/index.js"
+},
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "turbo": "^2.4.4",
+    "typescript": "5.8.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@prisma/client": "6.5.0",
+    "prisma": "^6.5.0"
+  }
+}
