@@ -4,7 +4,7 @@ FROM node:20-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy package manager files first to leverage Docker cache
+# Copy package files first (better for caching)
 COPY package.json turbo.json pnpm-lock.yaml ./
 
 # Install pnpm globally
@@ -16,14 +16,17 @@ RUN pnpm install --frozen-lockfile
 # Copy all source files
 COPY . .
 
-# Ensure Prisma is installed properly
+# Ensure Prisma is set up properly (if needed)
 RUN pnpm --filter=packages/db prisma generate
 
-# Build the project
-RUN pnpm --filter=apps/http-server build
+# **New fix:** Explicitly install dependencies for http-server
+RUN pnpm --filter=apps/http-server install --force
 
-# Expose port
+# Build the project
+RUN pnpm --filter=apps/http-server run build
+
+# Expose the port
 EXPOSE 8080
 
-# Start the app
-CMD ["pnpm", "run", "--filter", "apps/http-server", "start"]
+# Start the application
+CMD ["pnpm", "--filter=apps/http-server", "start"]
