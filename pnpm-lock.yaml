@@ -27,6 +27,9 @@ importers:
 
   apps/http-server:
     dependencies:
+      '@prisma/client':
+        specifier: 6.5.0
+        version: 6.5.0(prisma@6.5.0(typescript@5.8.2))(typescript@5.8.2)
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0

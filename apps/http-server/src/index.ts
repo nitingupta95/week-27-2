@@ -10,10 +10,10 @@ app.use(cors());
 
 app.get("/users", (req: Request, res: Response) => {
     client.user.findMany()
-    .then(users => {
+    .then((users:any) => {
       res.json(users);
     })
-    .catch(err => {
+    .catch((err:any )=> {
       res.status(500).json({ error: err.message });
     });
 })
