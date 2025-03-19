@@ -9,18 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # Fix: Clones the repository
+        uses: actions/checkout@v4
 
       - name: Docker login
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN  }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./docker/Dockerfile.http-server  # Ensure correct path
+          file: ./docker/Dockerfile.http-server  # Adjust path if necessary
           push: true
-          tags: nitinguptaji/todo-app-backend:${{ github.sha }}
+          tags: |
+            nitin329/todo-app-backend:${{ github.sha }}
+            nitin329/todo-app-backend:latest
