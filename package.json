@@ -8,7 +8,7 @@
   "check-types": "turbo run check-types --filter=apps/http-server",
   "format": "prettier --write \"**/*.{ts,tsx,md}\"",
   "generate:db": "cd packages/db && npx prisma generate",
-  "start:http-server": "cd apps/http-server && tsc -b && node ./dist/index.js",
+  "start:http-server": "cd apps/http-server && npm run dev",
   "start:ws": "cd apps/ws-server && tsc -b && node ./dist/index.js"
 },
   "devDependencies": {

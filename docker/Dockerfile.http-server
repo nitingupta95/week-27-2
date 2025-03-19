@@ -29,4 +29,4 @@ RUN pnpm --filter=apps/http-server run build
 EXPOSE 8080
 
 # Start the application
-CMD ["pnpm", "--filter=apps/http-server", "start"]
+CMD ["pnpm", "start:http-server"]
