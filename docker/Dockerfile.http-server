@@ -10,26 +10,20 @@ COPY package.json turbo.json pnpm-lock.yaml ./
 # Install pnpm globally
 RUN npm install -g pnpm
 
-# Install dependencies using pnpm
+# Install all dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy all source files
 COPY . .
 
-# Set environment variables
-ENV DATABASE_URL="postgresql://neondb_owner:npg_n8KXPoc9DIME@ep-late-cake-a5xy1gon-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require"
-
 # Ensure Prisma is installed properly
-RUN pnpm --filter=packages/db install
 RUN pnpm --filter=packages/db prisma generate
-RUN pnpm --filter=apps/web install --force
 
 # Build the project
-RUN pnpm --filter=apps/http-server run build
-
+RUN pnpm --filter=apps/http-server build
 
 # Expose port
 EXPOSE 8080
 
 # Start the app
-CMD ["pnpm", "start:http-server"]
+CMD ["pnpm", "run", "--filter", "apps/http-server", "start"]
